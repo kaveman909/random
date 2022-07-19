@@ -27,9 +27,9 @@ def parse_transcripts(lines, transcripts, type):
   data = []
   for line in lines:
     if line.startswith('[') and line.endswith(']'):
-      if timestamp:
+      if timestamp and data:
         transcripts.append(Transcript(timestamp, data, type))
-        data = []
+      data = []
       timestamp = line
     else:
       data.append(line)
