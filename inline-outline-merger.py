@@ -54,8 +54,7 @@ for inline in inline_files:
 
     transcripts.sort(key=lambda x: x.timestamp)
     for transcript in transcripts:
-      row = '{}\t{}'.format(transcript.type, transcript.timestamp)
-      for data in transcript.data:
-        row += '\t' + data
+      row = '{}\t{}\t{}'.format(
+          transcript.type, transcript.timestamp, '\t'.join(transcript.data))
       print(row)
     print('\n\n\n')
