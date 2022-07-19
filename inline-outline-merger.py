@@ -3,24 +3,13 @@
 import os
 import sys
 
+
 class Transcript:
   def __init__(self, timestamp, data, type):
     self.timestamp = float(timestamp[1:-1])
     self.data = data
     self.type = type
 
-
-folder = sys.argv[1]
-INLINE_SUFFIX = "_inLine.txt"
-OUTLINE_SUFFIX = "_outLine.txt"
-
-inline_files = [x[:-len(INLINE_SUFFIX)]
-                for x in os.listdir(folder) if INLINE_SUFFIX in x]
-outline_files = [x[:-len(OUTLINE_SUFFIX)]
-                 for x in os.listdir(folder) if OUTLINE_SUFFIX in x]
-
-inline_files.sort()
-outline_files.sort()
 
 def parse_transcripts(lines, transcripts, type):
   timestamp = ''
@@ -35,6 +24,19 @@ def parse_transcripts(lines, transcripts, type):
       data.append(line)
   if timestamp and data:
     transcripts.append(Transcript(timestamp, data, type))
+
+
+folder = sys.argv[1]
+INLINE_SUFFIX = "_inLine.txt"
+OUTLINE_SUFFIX = "_outLine.txt"
+
+inline_files = [x[:-len(INLINE_SUFFIX)]
+                for x in os.listdir(folder) if INLINE_SUFFIX in x]
+outline_files = [x[:-len(OUTLINE_SUFFIX)]
+                 for x in os.listdir(folder) if OUTLINE_SUFFIX in x]
+
+inline_files.sort()
+outline_files.sort()
 
 for inline in inline_files:
   if inline not in outline_files:
@@ -57,4 +59,3 @@ for inline in inline_files:
         row += '\t' + data
       print(row)
     print('\n\n\n')
-    
