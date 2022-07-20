@@ -41,20 +41,19 @@ outline_files.sort()
 for inline in inline_files:
   if inline not in outline_files:
     continue
-  else:
-    # found a valid pair of inline/outline
-    print(inline)
-    inline_lines = [x.strip() for x in open(os.path.join(
-        folder, inline + INLINE_SUFFIX), 'r').readlines()]
-    outline_lines = [x.strip() for x in open(os.path.join(
-        folder, inline + OUTLINE_SUFFIX), 'r').readlines()]
-    transcripts = []
-    parse_transcripts(inline_lines, transcripts, 'inLine')
-    parse_transcripts(outline_lines, transcripts, 'outLine')
+  # found a valid pair of inline/outline
+  print(inline)
+  inline_lines = [x.strip() for x in open(os.path.join(
+      folder, inline + INLINE_SUFFIX), 'r').readlines()]
+  outline_lines = [x.strip() for x in open(os.path.join(
+      folder, inline + OUTLINE_SUFFIX), 'r').readlines()]
+  transcripts = []
+  parse_transcripts(inline_lines, transcripts, 'inLine')
+  parse_transcripts(outline_lines, transcripts, 'outLine')
 
-    transcripts.sort(key=lambda x: x.timestamp)
-    for transcript in transcripts:
-      row = '{}\t{}\t{}'.format(
-          transcript.type, transcript.timestamp, '\t'.join(transcript.data))
-      print(row)
-    print('\n\n\n')
+  transcripts.sort(key=lambda x: x.timestamp)
+  for transcript in transcripts:
+    row = '{}\t{}\t{}'.format(
+        transcript.type, transcript.timestamp, '\t'.join(transcript.data))
+    print(row)
+  print('\n\n\n')
